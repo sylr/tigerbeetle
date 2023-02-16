@@ -25,9 +25,12 @@ fi
 # Overriding -target is one workaround Andrew suggests.
 # https://github.com/ziglang/zig/issues/10478#issuecomment-1294313967
 target=""
+./zig/zig targets | grep triple |cut -d '"' -f 4 | cut -d '.' -f 1,2
+./zig/zig/targets | grep triple
 if [ "$(./zig/zig targets | grep triple |cut -d '"' -f 4 | cut -d '.' -f 1,2)" = "aarch64-macos.13" ]; then
     target="-target native-macos.11"
 fi
+target="-target native-macos.11"
 
 # Zig picks musl libc on RHEL instead of glibc, incorrectly
 # https://github.com/ziglang/zig/issues/12156
