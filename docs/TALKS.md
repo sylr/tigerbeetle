@@ -15,10 +15,22 @@ https://twitter.com/qconlondon/status/1640314727950606339
 
 https://www.youtube.com/watch?v=QwXddaB8tj0
 
+## February 10, 2023: TigerStyle! (Or How To Design Safer Systems in Less Time)
+
+Talk by Joran at Systems Distributed 2023.
+
+https://www.youtube.com/watch?v=w3WYdYyjek4
+
+## February 10, 2023: What Is a Database?
+
+Talk by Jamie Brandon at Systems Distributed 2023.
+
+https://www.youtube.com/watch?v=MqbVoSs0lXk
+
 ## January 18, 2023: Why Accounting Needs Its Own Database with Joran Greef of Tiger Beetle on The datastack Show
 
 This week on The Data Stack Show, Eric and Kostas chatted with Joran
-Greef, Founder & CEO of Tiger Beetle. During the episode, Joran
+Dirk Greef, Founder & CEO of Tiger Beetle. During the episode, Joran
 discusses his journey from accounting to coding, why double-entry
 accounting is important for databases, safety issues in financial
 softwares, the need for low latency and high throughput, and more.
@@ -72,6 +84,8 @@ is shifting and it’s important that Zig adapts. Instead of providing
 solutions, let’s explore what the options are and discuss the status
 quo, the Future (no pun intended), and what it all means for a
 language and ecosystem in development.
+
+Presented by King Butcher.
 
 https://www.youtube.com/watch?v=Ul8OO4vQMTw
 
