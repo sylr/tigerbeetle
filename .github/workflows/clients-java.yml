@@ -219,3 +219,52 @@ jobs:
     # Run the tests
     - run: ./scripts/build.${{ matrix.os == 'windows-latest' && 'bat' || 'sh' }} client_integration
     - run: ./zig-out/bin/client_integration${{ matrix.os == 'windows-latest' && '.exe' || '' }} --language java --sample ${{ matrix.sample }}
+
+  docs:
+    # We use self hosted runners for M1 here. See macos.yml for an explaination
+    permissions:
+      contents: read
+
+    strategy:
+      matrix:
+        # TODO: support windows-latest
+        os: [ubuntu-latest, macos-latest, [self-hosted, ARM64, macos-12.6], [self-hosted, ARM64, macos-13.2]]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        server-id: github
+        settings-path: ${{ github.workspace }}
+
+    - name: Download jar
+      uses: actions/download-artifact@v3
+      with:
+        name: jar-artifact
+        path: src/clients/java/target/
+        
+    # Grab Zig
+    - run: ./scripts/install_zig.${{ matrix.os == 'windows-latest' && 'bat' || 'sh' }}
+
+    # Although Maven is supposed to be installed in the
+    # actions/setup-java@v3 step, it wasn't available in at least the
+    # self-hosted mac runner. So we grab it manually.
+
+    # Grab Maven
+    - run: curl -o maven.zip https://dlcdn.apache.org/maven/maven-3/3.9.1/binaries/apache-maven-3.9.1-bin.zip
+    - run: unzip maven.zip
+
+    # Set up Maven PATH.
+    - if: matrix.os != 'windows-latest'
+      run: echo "$(pwd)/apache-maven-3.9.1/bin" >> $GITHUB_PATH
+    - if: matrix.os == 'windows-latest'
+      run: echo "$(pwd)/apache-maven-3.9.1/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+    # Validate docs
+    - run: ./scripts/build.${{ matrix.os == 'windows-latest' && 'bat' || 'sh' }} client_docs -- --language java
+    - if: matrix.os == 'ubuntu-latest'
+      run: ./scripts/fail_on_diff.sh
