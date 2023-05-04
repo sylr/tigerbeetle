@@ -241,12 +241,6 @@ jobs:
         server-id: github
         settings-path: ${{ github.workspace }}
 
-    - name: Download jar
-      uses: actions/download-artifact@v3
-      with:
-        name: jar-artifact
-        path: src/clients/java/target/
-        
     # Grab Zig
     - run: ./scripts/install_zig.${{ matrix.os == 'windows-latest' && 'bat' || 'sh' }}
 

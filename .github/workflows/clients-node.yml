@@ -118,12 +118,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Download dist
-        uses: actions/download-artifact@v3
-        with:
-          name: node-binaries
-          path: src/clients/node
-
       # Grab Zig
       - run: ./scripts/install.${{ matrix.os == 'windows-latest' && 'bat' || 'sh' }}
 
